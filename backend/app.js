@@ -1,13 +1,17 @@
 import express from 'express'
-import dotenv from 'dotenv'; dotenv.config()
+import dotenv from 'dotenv';
+
+dotenv.config()
 import listEndpoints from 'express-list-endpoints'
-import getDatabaseConnection from 'models/index.js'
+import getDatabaseConnection from './models/index.js'
 import router from './routes/index.js'
+import mongoose from "mongoose";
+
 // Initialize
+global.mongoose = mongoose;
+await getDatabaseConnection();
 
 const app = express()
-await getDatabaseConnection()
-
 app.use('/api', router) // Use 'api' as base url
 
 
@@ -16,7 +20,7 @@ const domainUrl = process.env.NODE_ENV === 'production' ? 'http://localhost:5000
 const HOST = process.env.HOST || 'localhost'
 app.listen(5000, HOST, () => {
 
-  console.log('Server listening on port 5000')  
+    console.log('Server listening on port 5000')
 })
-console.table( listEndpoints(app) )
+console.table(listEndpoints(app))
 

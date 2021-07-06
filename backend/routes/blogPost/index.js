@@ -12,9 +12,10 @@ import BlogPostModel from '../../models/BlogPost.js'
  */
 //POST /blogPosts => create a new blogPost
 router.post('/', async (req, res) => {
+
     let blogPostDoc = new BlogPostModel(req.body)
     let blogPost = await blogPostDoc.save(e => res.send({error: e}))
-    res.send({ _id: blogPost._id })
+    res.send(blogPost)
 })
 router.get('/', (req, res) => {
 
