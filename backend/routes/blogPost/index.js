@@ -1,5 +1,7 @@
 import express from 'express'
+
 const router = express.Router();
+import BlogPostModel from '../../models/BlogPost.js'
 /*
 
     GET /blogPosts => returns the list of blogPosts
@@ -9,8 +11,10 @@ const router = express.Router();
     DELETE /blogPosts /123 => delete the blogPost with the given id
  */
 //POST /blogPosts => create a new blogPost
-router.post('/', (req, res) => {
-
+router.post('/', async (req, res) => {
+    let blogPostDoc = new BlogPostModel(req.body)
+    let blogPost = await blogPostDoc.save(e => res.send({error: e}))
+    res.send({ _id: blogPost._id })
 })
 router.get('/', (req, res) => {
 

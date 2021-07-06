@@ -1,21 +1,22 @@
 import mongoose from 'mongoose'
+
 let Schema = mongoose.Schema
 
 const author = new Schema({
-    name : { type: String, required: true},
-    avatar : { type: String },
+    name: {type: String, required: true},
+    avatar: {type: String},
 })
 const readTime = new Schema({
     value: Number,
     unit: Number
 })
-const blogPostSchema = new Schema( {
-    title : { type: String, required: true},
-    cover : { type: String},
-    category : { type: String, required: true},
-    readTime: [readTime],
-    author : [author]
-} );
+const blogPostSchema = new Schema({
+        title: {type: String, required: true},
+        cover: {type: String},
+        category: {type: String, required: true},
+        readTime: [readTime],
+        author: [author]
+    }, {collection: 'BlogPosts'});
 const Model = mongoose.model('BlogPost', blogPostSchema);
 export default Model
 
